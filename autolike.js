@@ -28,7 +28,6 @@ async function login() {
 try {
         const ig = new Insta();
         //if(check_cookie) {
-        //const comments = await readComments()
         const login = await ig.useExistingCookie()
             if (login) {
                 console.log(`Login berhasil dengan akun ${login.username}`);
@@ -45,6 +44,7 @@ try {
                                 const likes = await ig.likeMediaById(`${mediaId}`)
                                 if (likes.status == 'ok') {
                                     console.log(chalk.cyan(`[${moment().format("HH:mm:ss")}] Berhasil Likes Url : https://instagram.com/p/${id.media_or_ad.code} . Total Success : ${index}`));
+                                    //const comments = await readComments()
                                     // const comment = await ig.commentToMediaByMediaId({mediaId :`${mediaId}` , commentText:`${comments}`})
                                     //     if (comment.status == 'ok') {
                                     //     console.log(chalk.green(`[${moment().format("HH:mm:ss")}] Berhasil Comments : https://instagram.com/p/${id.media_or_ad.code} . isi komentar : ${comments}`));
