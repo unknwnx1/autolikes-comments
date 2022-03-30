@@ -3,10 +3,10 @@ const fs = require('fs')
 const read = require('readline-sync')
 const chalk = require('chalk');
 const moment = require('moment');
+const path = require('path');
 const Instagram = require('node-insta-web-api/lib');
 
 const waktu = read.question(chalk.green(`[${moment().format("HH:mm:ss")}] Masukan delay (menit) : `));
-const askComments = read.question(chalk.green(`[${moment().format("HH:mm:ss")}] use random comment in text ? (yes/no)`));
 async function sleep() {
     return new Promise((resolve) => setTimeout(resolve , waktu * 60000))
 }
@@ -32,7 +32,6 @@ try {
             if (login) {
                 console.log(`Login berhasil dengan akun ${login.username}`);
                 while(true) {
-                    try {
                     const getTimeline = await ig.scrollTimeline();
                     const getId = getTimeline.feed_items;
                     for (let index = 1; index < getId.length -1; index++) {
@@ -45,17 +44,15 @@ try {
                                 const likes = await ig.likeMediaById(`${mediaId}`)
                                 if (likes.status == 'ok') {
                                     console.log(chalk.cyan(`[${moment().format("HH:mm:ss")}] Berhasil Likes Url : https://instagram.com/p/${id.media_or_ad.code} . Total Success : ${index}`));
-                                    if(askComments == 'yes') {
-                                        const comments = await readComments()
-                                        const comment = await ig.commentToMediaByMediaId({mediaId :`${mediaId}` , commentText:`${comments}`})
-                                            if (comment.status == 'ok') {
-                                            console.log(chalk.green(`[${moment().format("HH:mm:ss")}] Berhasil Comments : https://instagram.com/p/${id.media_or_ad.code} . isi komentar : ${comments}`));
-                                                
-                                            } else {
-                                            console.log(chalk.red(`[${moment().format("HH:mm:ss")}] Gagal komentar` , comment.message));
-                                                
-                                            }
-                                    }
+                                    //const comments = await readComments()
+                                    // const comment = await ig.commentToMediaByMediaId({mediaId :`${mediaId}` , commentText:`${comments}`})
+                                    //     if (comment.status == 'ok') {
+                                    //     console.log(chalk.green(`[${moment().format("HH:mm:ss")}] Berhasil Comments : https://instagram.com/p/${id.media_or_ad.code} . isi komentar : ${comments}`));
+                                            
+                                    //     } else {
+                                    //     console.log(chalk.red(`[${moment().format("HH:mm:ss")}] Gagal komentar` , comment.message));
+                                            
+                                    //     }
                     
 
                                 } else {
@@ -67,13 +64,8 @@ try {
                     console.log(chalk.blue(`[${moment().format("HH:mm:ss")}] Delay ${waktu} Menit`));
                     await sleep()
                     console.log(chalk.blue(`[${moment().format("HH:mm:ss")}] Memulai Proses kembali ..`));
-                } catch (error) {
-                    console.log("Error" , error.message);
-                        
-                }
             
                 }
-                
 
 
             } else {
