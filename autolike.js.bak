@@ -7,11 +7,6 @@ const Instagram = require('node-insta-web-api/lib');
 
 const waktu = read.question(chalk.green(`[${moment().format("HH:mm:ss")}] Masukan delay (menit) : `));
 const askComments = read.question(chalk.green(`[${moment().format("HH:mm:ss")}] use random comment in text ? (yes/no)`));
-const delayLimit = read.question(chalk.green(`[${moment().format("HH:mm:ss")}] Masukan limit per aksi (detik) : `));
-async function limit() {
-    return new Promise((resolve) => setTimeout(resolve , delayLimit * 1000))
-}
-
 async function sleep() {
     return new Promise((resolve) => setTimeout(resolve , waktu * 60000))
 }
@@ -50,13 +45,11 @@ try {
                                 const likes = await ig.likeMediaById(`${mediaId}`)
                                 if (likes.status == 'ok') {
                                     console.log(chalk.cyan(`[${moment().format("HH:mm:ss")}] Berhasil Likes Url : https://instagram.com/p/${id.media_or_ad.code} . Total Success : ${index}`));
-                                    await limit()
                                     if(askComments == 'yes') {
                                         const comments = await readComments()
                                         const comment = await ig.commentToMediaByMediaId({mediaId :`${mediaId}` , commentText:`${comments}`})
                                             if (comment.status == 'ok') {
                                             console.log(chalk.green(`[${moment().format("HH:mm:ss")}] Berhasil Comments : https://instagram.com/p/${id.media_or_ad.code} . isi komentar : ${comments}`));
-                                            await limit()
                                                 
                                             } else {
                                             console.log(chalk.red(`[${moment().format("HH:mm:ss")}] Gagal komentar` , comment.message));

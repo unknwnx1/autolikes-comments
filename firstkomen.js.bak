@@ -55,7 +55,7 @@ async function firtsComment() {
                             await sleep();
                             
                         } else {
-                            console.log(chalk.red(`[${moment().format("HH:mm:ss")}] Gagal komentar` , comment.message));
+                            console.log(chalk.red(`[${moment().format("HH:mm:ss")}] Gagal komentar`));
                         }
                     
                 }
