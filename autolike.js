@@ -100,7 +100,7 @@ try {
                 const username = read.question(chalk.green(`[${moment().format("HH:mm:ss")}] Masukan Username kamu (ex:ryn.andri) : `))
                 const password = read.question(chalk.green(`[${moment().format("HH:mm:ss")}] Masukan password kamu : `))
                 const preLogin = await ig2.login(username,password);
-                    if (preLogin.status == 'ok') {
+                    if (preLogin.userId) {
                         console.log(`${username} Berhasil Login` , preLogin);
                         await login();
                     } else {
