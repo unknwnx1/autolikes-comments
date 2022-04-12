@@ -1,2 +1,5 @@
 npm install
-- move "node-instagram-web-api" to node_modules
+
+- Create Folder name "cookies"
+- setting target "target.txt"
+- login account getcookies.js
